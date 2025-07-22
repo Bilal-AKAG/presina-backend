@@ -1,9 +1,22 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import { auth } from './config/auth.config'
 import { connectDB, connectMongoNative } from './config/db.config'
 import { ENV } from './config/env.config'
-import { auth } from './config/auth.config'
 
 const app = new Hono()
+
+// cors configuration
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:5000'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    exposeHeaders: ['Content-Length'],
+    maxAge: 600,
+    credentials: true,
+  })
+)
 
 // connect to MongoDB using Mongoose
 await connectDB()
