@@ -9,7 +9,7 @@ const app = new Hono()
 // cors configuration
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:5000'],
+    origin: ['http://localhost:3000','http://localhost:5000'],
     allowHeaders: ['Content-Type', 'Authorization'],
     allowMethods: ['POST', 'GET', 'OPTIONS'],
     exposeHeaders: ['Content-Length'],
