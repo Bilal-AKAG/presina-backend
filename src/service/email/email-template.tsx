@@ -19,6 +19,7 @@ interface VerificationEmailProps {
   userName: string
   verificationUrl: string
 }
+
 const EmailVerification = ({
   userName,
   verificationUrl,
@@ -27,34 +28,32 @@ const EmailVerification = ({
     <Html lang="en" dir="ltr">
       <Head />
       <Preview>
-        Verify your email to start creating stunning presentations with Persina
-        AI! 🚀
+        Complete your Persina AI account setup - verify your email address
       </Preview>
       <Tailwind>
         <Body className="bg-[#F6F8FA] font-sans py-[40px]">
-          <Container className="bg-[#FFFFFF] rounded-[8px] mx-auto px-[32px] py-[40px] max-w-[600px]">
+          <Container className="bg-[#FFFFFF] rounded-[8px] mx-auto px-[40px] py-[48px] max-w-[600px]">
             {/* Logo Section */}
-            <Section className="text-center mb-[32px]">
+            <Section className="text-center mb-[40px]">
               <Img
-                src="https://di867tnz6fwga.cloudfront.net/brand-kits/489432b5-862c-4089-84ba-536991d5c43e/primary/b3814031-c692-4368-b343-57fd121f8c0e.png"
+                src="https://di867tnz6fwga.cloudfront.net/brand-kits/489432b5-862c-4089-84ba-536991d5c43e/primary/368dc7e3-84a1-4991-a67d-b77b44874bb4.png"
                 alt="Persina AI"
-                className="w-full h-auto object-cover max-w-[200px] mx-auto"
+                className="w-full h-auto object-cover max-w-[180px] mx-auto"
               />
             </Section>
 
             {/* Main Content */}
-            <Section className="text-center mb-[32px]">
-              <Heading className="text-[#000000] text-[28px] font-bold mb-[16px] leading-[1.2]">
-                Welcome to Persina AI! 🎉
+            <Section className="mb-[40px]">
+              <Heading className="text-[#000000] text-[24px] font-bold mb-[24px] leading-[1.3] text-center">
+                Verify Your Email Address
               </Heading>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[24px]">
-                Hey {userName}! We're thrilled you've joined us. You're just one
-                click away from transforming your ideas into stunning,
-                professional presentations in seconds.
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[24px]">
+                Hello {userName},
               </Text>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[32px]">
-                Let's verify your email address so you can start creating magic
-                with AI! ✨
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[24px]">
+                Welcome to Persina AI! To complete your account setup and start
+                creating professional presentations with AI, please verify your
+                email address by clicking the button below.
               </Text>
             </Section>
 
@@ -62,54 +61,64 @@ const EmailVerification = ({
             <Section className="text-center mb-[40px]">
               <Button
                 href={verificationUrl}
-                className="bg-[#6d6d6d] text-white px-[32px] py-[16px] rounded-[8px] text-[16px] font-medium no-underline box-border inline-block"
+                className="bg-[#5540ff] text-white px-[40px] py-[16px] rounded-[8px] text-[16px] font-semibold no-underline box-border inline-block"
               >
-                Verify My Email Address
+                Verify Email Address
               </Button>
             </Section>
 
             {/* Alternative Link */}
-            <Section className="text-center mb-[40px]">
-              <Text className="text-[#000000] text-[14px] leading-[1.5] mb-[8px]">
-                Button not working? Copy and paste this link into your browser:
+            <Section className="mb-[40px]">
+              <Text className="text-[#000000] text-[14px] leading-[1.5] mb-[12px]">
+                If the button above doesn't work, please copy and paste this
+                link into your browser:
               </Text>
-              <Link
-                href={verificationUrl}
-                className="text-[#6d6d6d] text-[14px] underline break-all"
-              >
+              <Text className="text-[#5540ff] text-[14px] break-all bg-[#F6F8FA] px-[16px] py-[12px] rounded-[4px] font-mono">
                 {verificationUrl}
-              </Link>
+              </Text>
             </Section>
 
-            {/* What's Next Section */}
-            <Section className="mb-[40px] border-t border-solid border-[#F6F8FA] pt-[32px]">
-              <Heading className="text-[#000000] text-[20px] font-bold mb-[16px]">
-                What's next? 🚀
+            {/* Security Notice */}
+            <Section className="mb-[40px] bg-[#F6F8FA] px-[24px] py-[20px] rounded-[8px]">
+              <Text className="text-[#000000] text-[14px] leading-[1.5] mb-[8px] font-semibold">
+                Security Notice
+              </Text>
+              <Text className="text-[#000000] text-[14px] leading-[1.5] mb-[0px]">
+                This verification link will expire in 24 hours. If you didn't
+                create an account with Persina AI, please ignore this email or
+                contact our support team.
+              </Text>
+            </Section>
+
+            {/* What's Next */}
+            <Section className="mb-[40px]">
+              <Heading className="text-[#000000] text-[18px] font-semibold mb-[16px]">
+                What happens next?
               </Heading>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[16px]">
-                Once verified, you'll be able to:
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[16px]">
+                Once your email is verified, you'll have full access to:
               </Text>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[8px] ml-[16px]">
-                • Generate professional presentations in seconds
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[8px]">
+                • AI-powered presentation generation
               </Text>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[8px] ml-[16px]">
-                • Let AI handle content structuring and design
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[8px]">
+                • Professional slide templates and layouts
               </Text>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[8px] ml-[16px]">
-                • Create stunning slide decks for work, school, or startups
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[8px]">
+                • Automated content structuring and design
               </Text>
-              <Text className="text-[#000000] text-[16px] leading-[1.5] mb-[16px] ml-[16px]">
-                • Access clean, visually compelling layouts automatically
+              <Text className="text-[#000000] text-[16px] leading-[1.6] mb-[16px]">
+                • Export options for various formats
               </Text>
             </Section>
 
-            {/* Help Section */}
-            <Section className="text-center mb-[40px]">
+            {/* Support */}
+            <Section className="mb-[40px] text-center">
               <Text className="text-[#000000] text-[14px] leading-[1.5]">
-                Need help? We're here for you! Reach out to us anytime at{' '}
+                Questions? Our support team is here to help at{' '}
                 <Link
                   href="mailto:support@PersinaAI.com"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   support@PersinaAI.com
                 </Link>
@@ -117,69 +126,73 @@ const EmailVerification = ({
             </Section>
 
             {/* Footer */}
-            <Section className="border-t border-solid border-[#F6F8FA] pt-[24px] text-center">
-              <Text className="text-[#6d6d6d] text-[12px] leading-[1.4] mb-[16px]">
+            <Section className="border-t border-solid border-[#F6F8FA] pt-[32px]">
+              <Text className="text-[#000000] text-[12px] leading-[1.4] mb-[16px] text-center">
                 <strong>Company:</strong>{' '}
                 <Link
                   href="https://PersinaAI.com/about"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   About us
                 </Link>{' '}
                 |{' '}
                 <Link
                   href="https://PersinaAI.com/careers"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   Careers
                 </Link>{' '}
                 |{' '}
                 <Link
                   href="https://PersinaAI.com/security"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   Security
                 </Link>{' '}
                 |{' '}
                 <Link
                   href="https://PersinaAI-status.com"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   Status
                 </Link>{' '}
                 |{' '}
                 <Link
                   href="https://PersinaAI.com/terms"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   Terms & privacy
                 </Link>{' '}
                 |{' '}
                 <Link
                   href="https://PersinaAI.com/privacy-rights"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   Your privacy rights
                 </Link>
               </Text>
 
-              <Text className="text-[#6d6d6d] text-[12px] leading-[1.4] mb-[8px] m-0">
-                Persina AI, Addis Ababba
+              <Text className="text-[#000000] text-[12px] leading-[1.4] mb-[8px] text-center">
+                Persina AI
               </Text>
 
-              <Text className="text-[#6d6d6d] text-[12px] leading-[1.4] mb-[8px] m-0">
+              <Text className="text-[#000000] text-[12px] leading-[1.4] mb-[8px] m-0 text-center">
+                Addis Ababba
+              </Text>
+
+              <Text className="text-[#000000] text-[12px] leading-[1.4] mb-[16px] m-0 text-center">
                 © 2025 Persina Labs, Inc.
               </Text>
 
-              <Text className="text-[#6d6d6d] text-[10px] leading-[1.4] m-0">
+              <Text className="text-[#000000] text-[10px] leading-[1.4] mb-[8px] m-0 text-center">
                 Cookie settings available. Privacy Policy and Terms of Service
                 apply. Status page available at PersinaAI-status.com.
               </Text>
 
-              <Text className="text-[#6d6d6d] text-[10px] leading-[1.4] mt-[8px] m-0">
+              <Text className="text-[#000000] text-[10px] leading-[1.4] m-0 text-center">
                 <Link
                   href="https://PersinaAI.com/unsubscribe"
-                  className="text-[#6d6d6d] underline"
+                  className="text-[#5540ff] no-underline"
                 >
                   Unsubscribe
                 </Link>
@@ -190,6 +203,11 @@ const EmailVerification = ({
       </Tailwind>
     </Html>
   )
+}
+
+EmailVerification.PreviewProps = {
+  verificationUrl: 'https://PersinaAI.com/verify?token=abc123def456',
+  userName: 'Sarah',
 }
 
 export default EmailVerification
