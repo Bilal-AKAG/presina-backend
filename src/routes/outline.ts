@@ -5,35 +5,61 @@ import Outline from "../models/outline";
 
 export const outlineRoutes = new Hono();
 
+// POST /api/outline
 outlineRoutes.post("/outline", async (c) => {
-  
-  const formData = await c.req.formData();
-  const file = formData.get("file") as File;
-  const prompt = formData.get("prompt") as string || "";
+  const formData = await c.req.formData()
+  const file = formData.get("file") as File | null
+  const prompt = (formData.get("prompt") as string) || ""
+  let numSlides = parseInt((formData.get("num_slides") as string) || "5", 10) // Default to 5 if not provided
 
-  let text = prompt;
+  // Validate num_slides
+  const allowedSlides = [1, 3, 5, 10]
+  if (!allowedSlides.includes(numSlides)) {
+    return c.json(
+      { error: `Invalid number of slides. Allowed: ${allowedSlides.join(', ')}` },
+      400
+    )
+  }
 
+  let text = prompt
+
+  // Extract text from file if provided
   if (file) {
-    const buffer = await file.arrayBuffer();
-    const mimeType = file.type;
+    try {
+      const buffer = await file.arrayBuffer()
+      const mimeType = file.type
+      const extracted = await extractTextFromFile(Buffer.from(buffer), mimeType)
 
-    const extracted = await extractTextFromFile(Buffer.from(buffer), mimeType);
-
-    if (extracted?.length > 10) {
-      text = extracted;
+      if (extracted?.trim().length > 10) {
+        text = text ? `${text}\n\n${extracted}`.trim() : extracted.trim()
+      } else if (!text) {
+        return c.json({ error: "No readable content found in the file." }, 400)
+      }
+    } catch (err) {
+      console.error("File processing error:", err)
+      return c.json({ error: "Failed to process file." }, 400)
     }
   }
 
+  // Final validation
   if (!text || text.length < 10) {
-    return c.json({ error: "No valid content found in file or prompt." }, 400);
+    return c.json({ error: "Please provide a prompt or a file with meaningful content." }, 400)
   }
 
-  const outline = await generateOutlineFromText(text);
-  const saved = await Outline.create({ source: text, slides: outline.slides });
+  // Generate outline with requested number of slides
+  const outline = await generateOutlineFromText(text, numSlides) // ← Pass numSlides here
 
-  return c.json({ outline: saved.slides });
+  // Save to DB
+  const saved = await Outline.create({
+    source: text,
+    slides: outline.slides,
+    numSlides,
+  })
 
-});
+  // Return only the slides array
+  return c.json({ outline: saved.slides })
+})
+
 
 // GET all presentations (outlines)
 outlineRoutes.get('/outline', async (c) => {

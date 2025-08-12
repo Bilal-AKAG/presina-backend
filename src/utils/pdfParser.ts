@@ -1,31 +1,34 @@
 import pdfParse from "pdf-parse";
 import mammoth from "mammoth";
-// import pptx2json from "pptx2json";
 
 /**
  * Extracts readable text from PDF, DOCX, or PPTX files
+ * @param buffer - The file content as a Buffer
+ * @param mimeType - The MIME type of the file
+ * @returns Promise<string> - Extracted text, or empty string on failure/unsupported type
  */
 export async function extractTextFromFile(buffer: Buffer, mimeType: string): Promise<string> {
   try {
-    if (mimeType === "application/pdf") {
-      const data = await pdfParse(buffer);
-      return data.text;
+    switch (mimeType) {
+      case "application/pdf": {
+        const data = await pdfParse(buffer);
+        return data.text?.trim() || "";
+      }
+
+      case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+        const result = await mammoth.extractRawText({ buffer });
+        return result.value?.trim() || "";
+      }
+
+      case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+        // TODO: Add PPTX support with a working library (e.g., 'node-pptx' or 'officegen')
+        console.warn("PPTX parsing is not yet implemented");
+        return "";
+
+      default:
+        console.warn(`Unsupported MIME type: ${mimeType}`);
+        return "";
     }
-
-    if (mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-      const result = await mammoth.extractRawText({ buffer });
-      return result.value;
-    }
-
-    // if (mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
-    //   const result = await pptx2json(buffer);
-    //   const slideTexts = result.slides.map((slide: any) =>
-    //     slide.texts.map((textObj: any) => textObj.text).join(" ")
-    //   );
-    //   return slideTexts.join("\n");
-    // }
-
-    return "";
   } catch (err) {
     console.error("File parse error:", err);
     return "";
