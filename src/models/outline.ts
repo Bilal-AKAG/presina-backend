@@ -8,10 +8,7 @@ const slideSchema = new mongoose.Schema({
 const outlineSchema = new mongoose.Schema({
   source: String,
   slides: [slideSchema],
-   isConverted: {
-    type: Boolean,
-    default: false,
-  },
+  numSlides: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
 });
 

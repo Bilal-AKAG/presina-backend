@@ -9,13 +9,13 @@ const TemplateSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      content: mongoose.Schema.Types.Mixed, // can be string or object or array
-    }
+      content: mongoose.Schema.Types.Mixed, 
+    },
   ],
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 export default mongoose.model('Template', TemplateSchema);

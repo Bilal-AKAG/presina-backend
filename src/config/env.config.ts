@@ -5,4 +5,5 @@ export const ENV = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
   RESEND_API_KEY: process.env.RESEND_API_KEY,
+  BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET as string,
 }

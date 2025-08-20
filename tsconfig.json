@@ -25,7 +25,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["bun"]
+    "types": ["bun", "hono", "node"],
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

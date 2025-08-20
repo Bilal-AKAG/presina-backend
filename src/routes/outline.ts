@@ -2,11 +2,12 @@ import { Hono } from "hono";
 import { extractTextFromFile } from "../utils/pdfParser";
 import { generateOutlineFromText } from "../services/gemini";
 import Outline from "../models/outline";
+import { requireAuth } from '@/middleware/auth.middleware'
 
 export const outlineRoutes = new Hono();
 
 // POST /api/outline
-outlineRoutes.post("/outline", async (c) => {
+outlineRoutes.post("/outline", requireAuth,async (c) => {
   const formData = await c.req.formData()
   const file = formData.get("file") as File | null
   const prompt = (formData.get("prompt") as string) || ""
@@ -57,42 +58,12 @@ outlineRoutes.post("/outline", async (c) => {
   })
 
   // Return only the slides array
-  return c.json({ outline: saved.slides })
+  return c.json({ slides: saved.slides, _id: saved._id.toString(),numSlides},200) 
 })
 
 
-// GET all presentations (outlines)
-outlineRoutes.get('/outline', async (c) => {
-  const presentations = await Outline.find().sort({ createdAt: -1 });
-  return c.json(presentations);
-});
-
-// route: POST /api/slides
-outlineRoutes.post('/slides', async (c) => {
-  const body = await c.req.json();
-
-  const outline = body.outline;
-
-  if (!outline || !Array.isArray(outline)) {
-    return c.json({ error: "Invalid outline format" }, 400);
-  }
-
-  const saved = await Outline.create({
-    source: 'User edited',
-    slides: outline,
-    isConverted: true,
-  });
-
-  return c.json({
-    message: "Slide converted successfully",
-    slides: saved.slides,
-  });
-});
-
-
-
 // PUT /api/slides/:id
-outlineRoutes.put('/slides/:id', async (c) => {
+outlineRoutes.put('/outline/:id', async (c) => {
   const id = c.req.param('id')
   const body = await c.req.json()
 

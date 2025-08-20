@@ -13,6 +13,7 @@
     "mammoth": "^1.10.0",
     "mongodb": "^6.18.0",
     "mongoose": "^8.16.4",
+    "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
     "pptxgenjs": "^4.0.1",
     "react": "^19.1.0",

@@ -11,6 +11,8 @@ const db = client.db()
 // const resend = new Resend(ENV.RESEND_API_KEY)
 
 export const auth = betterAuth({
+  secret: ENV.BETTER_AUTH_SECRET,
+  baseURL: `http://localhost:${ENV.PORT}`,
   trustedOrigins: ['http://localhost:3000'],
   database: mongodbAdapter(db),
   emailAndPassword: {
@@ -65,7 +67,16 @@ export const auth = betterAuth({
       clientSecret: ENV.GOOGLE_CLIENT_SECRET,
     },
   },
-  advanced: {
-    cookiePrefix: 'ppt-gen-ai',
-  },
+  // advanced: {
+  //   cookiePrefix: 'ppt-gen-ai',
+  // },
+  cookieOptions: {
+      domain: 'localhost',     // ✅ Allows :3000 and :5000
+      path: '/',
+      sameSite: 'lax',         // ✅ Good for cross-site GET
+      secure: false,           // ✅ false for HTTP
+      httpOnly: true,         // ✅ Must be false for `state` (read by frontend)
+    },
+    
 })
+
