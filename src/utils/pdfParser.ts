@@ -1,4 +1,4 @@
-import pdfParse from "pdf-parse";
+import PDFParser from "pdf2json";
 import mammoth from "mammoth";
 
 /**
@@ -11,8 +11,22 @@ export async function extractTextFromFile(buffer: Buffer, mimeType: string): Pro
   try {
     switch (mimeType) {
       case "application/pdf": {
-        const data = await pdfParse(buffer);
-        return data.text?.trim() || "";
+        const pdfParser = new PDFParser();
+        pdfParser.parseBuffer(buffer);
+
+        return new Promise((resolve, reject) => {
+          pdfParser.on('pdfParser_dataReady', (pdfData) => {
+            // Extract text from all pages, decoding URI-encoded characters (e.g., %20 for spaces)
+            const text = pdfData.Pages.flatMap(page =>
+              page.Texts.map(textItem => decodeURIComponent(textItem.R[0].T))
+            ).join(' ').trim();
+            resolve(text || "");
+          });
+          pdfParser.on('error', (err) => {
+            console.error("PDF parse error:", err);
+            reject(err);
+          });
+        });
       }
 
       case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
