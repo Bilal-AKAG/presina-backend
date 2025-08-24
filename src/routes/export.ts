@@ -1,11 +1,10 @@
 // routes/export.ts
 import { Hono } from 'hono'
-import Presentation from '@/models/presentation'
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 import mongoose from 'mongoose'
-import { renderSlideToPDF } from '@/utils/renderSlideToPDF'
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 import { requireAuth } from '@/middleware/auth.middleware'
-
+import Presentation from '@/models/presentation'
+import { renderSlideToPDF } from '@/utils/renderSlideToPDF'
 
 const exportRoutes = new Hono()
 
@@ -125,7 +124,8 @@ exportRoutes.get('/pptx/:id', async (c) => {
 
   return new Response(buffer, {
     headers: {
-      'Content-Type': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'Content-Type':
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       'Content-Disposition': `attachment; filename="${presentation.title || 'presentation'}.pptx"`,
     },
   })

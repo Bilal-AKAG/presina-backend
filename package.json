@@ -2,11 +2,13 @@
   "name": "pptGen-backend",
   "type": "module",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@react-email/components": "^0.3.3",
+    "@types/pdf-parse": "^1.1.5",
     "better-auth": "^1.3.2",
     "dotenv": "^17.2.0",
     "hono": "^4.8.5",
