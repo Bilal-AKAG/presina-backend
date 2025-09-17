@@ -11,7 +11,7 @@ const db = client.db()
 // const resend = new Resend(ENV.RESEND_API_KEY)
 
 export const auth = betterAuth({
-  trustedOrigins: ['http://localhost:3000'],
+  trustedOrigins: [process.env.FRONTEND_URL!],
   database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,

@@ -3,10 +3,10 @@ import { cors } from 'hono/cors'
 import { auth } from './config/auth.config'
 import { connectDB, connectMongoNative } from './config/db.config'
 import { ENV } from './config/env.config'
+import exportRoutes from './routes/export'
 import { outlineRoutes } from './routes/outline'
 import slidesRoutes from './routes/slides'
 import templateRoutes from './routes/templates'
-import exportRoutes from './routes/export'
 
 const app = new Hono()
 
@@ -14,7 +14,7 @@ async function startServer() {
   // CORS configuration
   app.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: process.env.FRONTEND_URL!,
       allowHeaders: ['Content-Type', 'Authorization'],
       allowMethods: ['POST', 'GET', 'OPTIONS'],
       exposeHeaders: ['Content-Length'],
@@ -28,25 +28,22 @@ async function startServer() {
   await connectMongoNative()
 
   // Auth routes
-app.all('/api/auth/*', async (c) => {
-
-  try {
-    const res = await auth.handler(c.req.raw)
-    console.log(res)
-    return res
-    
-  } catch (err) {
-    console.error('💥 [Auth] Handler error:', err)
-    return c.text('Internal Error', 500)
-  }
-})
+  app.all('/api/auth/*', async (c) => {
+    try {
+      const res = await auth.handler(c.req.raw)
+      console.log(res)
+      return res
+    } catch (err) {
+      console.error('💥 [Auth] Handler error:', err)
+      return c.text('Internal Error', 500)
+    }
+  })
 
   // Mount API routes
   app.route('/api', outlineRoutes)
   app.route('/api/slide', slidesRoutes)
   app.route('/api/templates', templateRoutes)
   app.route('/api/export', exportRoutes)
-
 
   // Base route
   app.get('/', (c) => c.text('Greeting from Team 2!'))
