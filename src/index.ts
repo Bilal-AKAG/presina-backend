@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { auth } from './config/auth.config'
 import { connectDB, connectMongoNative } from './config/db.config'
+import { ENV } from './config/env.config'
 import exportRoutes from './routes/export'
 import { outlineRoutes } from './routes/outline'
 import slidesRoutes from './routes/slides'
@@ -9,6 +10,7 @@ import templateRoutes from './routes/templates'
 
 const app = new Hono()
 
+async function startServer() {
   // CORS configuration
   app.use(
     cors({
@@ -45,3 +47,6 @@ const app = new Hono()
     fetch: app.fetch,
   }
 }
+
+// Export server for Bun
+export default await startServer()
