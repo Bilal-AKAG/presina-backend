@@ -11,7 +11,7 @@ const db = client.db()
 // const resend = new Resend(ENV.RESEND_API_KEY)
 
 export const auth = betterAuth({
-  trustedOrigins: [process.env.FRONTEND_URL!],
+  trustedOrigins: [`${process.env.FRONTEND_URL!}`],
   database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
@@ -69,12 +69,10 @@ export const auth = betterAuth({
   //   cookiePrefix: 'ppt-gen-ai',
   // },
   cookieOptions: {
-      domain: 'localhost',     // ✅ Allows :3000 and :5000
-      path: '/',
-      sameSite: 'lax',         // ✅ Good for cross-site GET
-      secure: false,           // ✅ false for HTTP
-      httpOnly: true,         // ✅ Must be false for `state` (read by frontend)
-    },
-    
+    domain: 'localhost', // ✅ Allows :3000 and :5000
+    path: '/',
+    sameSite: 'lax', // ✅ Good for cross-site GET
+    secure: false, // ✅ false for HTTP
+    httpOnly: true, // ✅ Must be false for `state` (read by frontend)
+  },
 })
-
