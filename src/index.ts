@@ -14,7 +14,7 @@ async function startServer() {
   // CORS configuration
   app.use(
     cors({
-      origin: process.env.FRONTEND_URL!,
+      origin: 'https://presina-frontend.vercel.app',
       allowHeaders: ['Content-Type', 'Authorization'],
       allowMethods: ['POST', 'GET', 'OPTIONS'],
       exposeHeaders: ['Content-Length'],
