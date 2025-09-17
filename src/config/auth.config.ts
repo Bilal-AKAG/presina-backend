@@ -12,6 +12,7 @@ const db = client.db()
 
 export const auth = betterAuth({
   trustedOrigins: ["https://presina-frontend.vercel.app"],
+  
   database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
@@ -68,4 +69,11 @@ export const auth = betterAuth({
   advanced: {
     cookiePrefix: 'ppt-gen-ai',
   },
+  cookieOptions: {
+       domain: 'https://presina-frontend.vercel.app',     // ✅ Allows :3000 and :5000
+       path: '/',
+       sameSite: 'lax',         
+       secure: true,           
+       httpOnly: false,         // ✅ Must be false for `state` (read by frontend)
+     },
 })
