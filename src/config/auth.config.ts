@@ -69,7 +69,7 @@ export const auth = betterAuth({
   //   cookiePrefix: 'ppt-gen-ai',
   // },
   cookieOptions: {
-    domain: 'localhost', // ✅ Allows :3000 and :5000
+    domain: 'presina-frontend.vercel.app', // ✅ Allows :3000 and :5000
     path: '/',
     sameSite: 'lax', // ✅ Good for cross-site GET
     secure: false, // ✅ false for HTTP
