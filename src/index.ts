@@ -11,7 +11,6 @@ import templateRoutes from './routes/templates'
 const app = new Hono()
 
 app.use(
-  '/api/auth/*',
   cors({
     origin: 'https://presina-frontend.vercel.app',
     allowHeaders: ['Content-Type', 'Authorization'],

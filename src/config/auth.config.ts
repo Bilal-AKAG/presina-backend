@@ -12,6 +12,7 @@ const db = client.db()
 
 export const auth = betterAuth({
   trustedOrigins: ['https://presina-frontend.vercel.app'],
+  secret: process.env.BETTER_AUTH_SECRET,
   database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
