@@ -11,7 +11,7 @@ const db = client.db()
 // const resend = new Resend(ENV.RESEND_API_KEY)
 
 export const auth = betterAuth({
-  trustedOrigins: [`${process.env.FRONTEND_URL!}`],
+  trustedOrigins: ['https://presina-frontend.vercel.app'],
   database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
