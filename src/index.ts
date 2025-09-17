@@ -10,43 +10,39 @@ import templateRoutes from './routes/templates'
 
 const app = new Hono()
 
-async function startServer() {
-  // CORS configuration
-  app.use(
-    cors({
-      origin: 'https://presina-frontend.vercel.app',
-      allowHeaders: ['Content-Type', 'Authorization'],
-      allowMethods: ['POST', 'GET', 'OPTIONS'],
-      exposeHeaders: ['Content-Length'],
-      maxAge: 600,
-      credentials: true,
-    })
-  )
-
-  // Connect to MongoDB
-  await connectDB()
-  await connectMongoNative()
-
-  // Auth routes
-  app.on(['POST', 'GET'], '/api/auth/*', (c) => {
-    return auth.handler(c.req.raw)
+app.use(
+  '/api/auth/*',
+  cors({
+    origin: 'https://presina-frontend.vercel.app',
+    allowHeaders: ['Content-Type', 'Authorization'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    exposeHeaders: ['Content-Length'],
+    maxAge: 600,
+    credentials: true,
   })
+)
+app.on(['POST', 'GET'], '/api/auth/*', (c) => {
+  return auth.handler(c.req.raw)
+})
 
-  // Mount API routes
-  app.route('/api', outlineRoutes)
-  app.route('/api/slide', slidesRoutes)
-  app.route('/api/templates', templateRoutes)
-  app.route('/api/export', exportRoutes)
+// Connect to MongoDB
+await connectDB()
+await connectMongoNative()
 
-  // Base route
-  app.get('/', (c) => c.text('Greeting from Team 2!'))
+// Mount API routes
+app.route('/api', outlineRoutes)
+app.route('/api/slide', slidesRoutes)
+app.route('/api/templates', templateRoutes)
+app.route('/api/export', exportRoutes)
 
-  // Start server
-  return {
-    port: ENV.PORT,
-    fetch: app.fetch,
-  }
+// Base route
+app.get('/', (c) => c.text('Greeting from Team 2!'))
+
+// Start server
+
+export default {
+  port: ENV.PORT,
+  fetch: app.fetch,
 }
 
 // Export server for Bun
-export default await startServer()
