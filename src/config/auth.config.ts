@@ -72,7 +72,7 @@ export const auth = betterAuth({
     domain: 'presina-frontend.vercel.app', // ✅ Allows :3000 and :5000
     path: '/',
     sameSite: 'lax', // ✅ Good for cross-site GET
-    secure: false, // ✅ false for HTTP
+    secure: true, // ✅ false for HTTP
     httpOnly: true, // ✅ Must be false for `state` (read by frontend)
   },
 })
